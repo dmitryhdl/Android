@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,6 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.regex.Pattern;
+
+
+import static com.example.myapplication.ProfileActivity.EMAIL_KEY;
+import static com.example.myapplication.ProfileActivity.PASSWORD_KEY;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -25,7 +30,14 @@ public class AuthActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             if (isEmailValid() && isPasswordValid()) {
-            // переход в приложение
+                Intent startProfileIntent =
+                        new Intent(AuthActivity.this,ProfileActivity.class); // Запуск класса ProfileActivity с помощью Intenta.
+
+                startProfileIntent.putExtra(ProfileActivity.EMAIL_KEY,mLogin.getText().toString());
+                startProfileIntent.putExtra(ProfileActivity.PASSWORD_KEY,mPassword.getText().toString());
+                startActivity(startProfileIntent);
+
+
             }else{
                 ShowMessage(R.string.login_input_error);
             }
@@ -74,5 +86,9 @@ public class AuthActivity extends AppCompatActivity {
 
         mEnter.setOnClickListener(monEnterClickListener);
         mRegister.setOnClickListener(monRegisterClickListener);
+
+
+
+
     }
 }
