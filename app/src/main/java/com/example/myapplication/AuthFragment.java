@@ -1,10 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
 
 
 public class AuthFragment extends Fragment {
@@ -48,10 +48,12 @@ public class AuthFragment extends Fragment {
 
 
             }else{
-                ShowMessage(R.string.login_input_error);
+                ShowMessage(R.string.login_error);
             }
         }
 };
+
+
 // Метод проверки Логина на корректность
     private boolean isEmailValid() {
         return !TextUtils.isEmpty(mLogin.getText())
@@ -62,9 +64,13 @@ public class AuthFragment extends Fragment {
     private View.OnClickListener monRegisterClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainer, RegistrationFragment.newInstance())
+                    .commit();
         }
     };
+
     // Метод проверки Пароля на корректность
     private boolean isPasswordValid() {
         return !TextUtils.isEmpty(mPassword.getText());
